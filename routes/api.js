@@ -17,11 +17,11 @@ module.exports = function (app) {
     const result = convertHandler.convert(json.initNum, json.initUnit);
 
     json = {...json, ...result};
-    if(json.returnUnit && json.returnUnit === 'kg') {
+    if(json.returnUnit && json.returnUnit === 'mi') {
       console.log(json);
     }
 
-    if(json.returnUnit && json.returnUnit === 'lbs') {
+    if(json.returnUnit && json.returnUnit === 'km') {
       console.log(json);
     }
     

@@ -35,7 +35,7 @@ function ConvertHandler() {
   this.getReturnUnit = function(initUnit) {
     const convertUnit = {
       mi: 'km',
-      lbs: 'Kg',
+      lbs: 'kg',
       gal: 'L',
       L: 'gal',
       l: 'gal',
@@ -85,7 +85,7 @@ function ConvertHandler() {
     result.string = this.getString(initNum, initUnit, result.returnNum, result.returnUnit);
 
     
-    result.returnNum = result.returnNum.toPrecision(6);
+    result.returnNum = String(result.returnNum);
 
     const splittedNum = result.returnNum.split('.');
     splittedNum[1] = splittedNum[1].slice(0,5);
