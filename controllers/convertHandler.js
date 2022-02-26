@@ -1,4 +1,13 @@
 function ConvertHandler() {
+  this.convertUnit = {
+    mi: 'km',
+    lbs: 'kg',
+    gal: 'L',
+    L: 'gal',
+    l: 'gal',
+    km: 'mi',
+    kg: 'lbs',
+  };
   
   this.getNum = function(input) {
     if(Number(input)) return input;
@@ -13,7 +22,18 @@ function ConvertHandler() {
       result += char;
     }
 
-    return Number(result);
+    result = result === '' ? '1' : result;
+    
+    if(result.includes('/')) {
+      const split = result.split('/');
+      
+      if(split.length > 2) {
+        return 'invalid number';
+      }
+      result = Number(split[0]) / Number(split[1]);
+    }
+    
+    return Number(result) ? Number(result) : 'invalid number';
   };
   
   this.getUnit = function(input) {
@@ -29,21 +49,13 @@ function ConvertHandler() {
     }
     
     result = input.slice(result.length);
-    return result;
+    result = result === 'l' || result === 'L' ? result.toUpperCase() : result.toLowerCase();
+    
+    return this.convertUnit[result] ? result : 'invalid unit';
   };
   
   this.getReturnUnit = function(initUnit) {
-    const convertUnit = {
-      mi: 'km',
-      lbs: 'kg',
-      gal: 'L',
-      L: 'gal',
-      l: 'gal',
-      km: 'mi',
-      kg: 'lbs',
-    };
- 
-    return convertUnit[initUnit];
+    return this.convertUnit[initUnit];
   };
 
   this.spellOutUnit = function(unit) {

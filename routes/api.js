@@ -13,7 +13,20 @@ module.exports = function (app) {
     json.initNum = convertHandler.getNum(input);
     json.initUnit = convertHandler.getUnit(input);
 
-    json.initUnit = json.initUnit === 'l' || json.initUnit === 'L' ? json.initUnit.toUpperCase() : json.initUnit.toLowerCase();
+    if(json.initNum === 'invalid number' || json.initUnit === 'invalid unit') {
+      if(json.initNum === 'invalid number' && json.initUnit === 'invalid unit') {
+        res.json({ error: 'invalid number and unit' });
+        return;
+      }
+
+      if(json.initNum === 'invalid number') {
+        res.json({ error: 'invalid number' });
+        return;        
+      }
+
+      res.json({ error: 'invalid unit' });
+      return;      
+    }
     const result = convertHandler.convert(json.initNum, json.initUnit);
 
     json = {...json, ...result};
