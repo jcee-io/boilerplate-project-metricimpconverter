@@ -6,7 +6,7 @@ function ConvertHandler() {
     let result = '';
 
     for(let char of input) {
-      if(isNaN(char)) {
+      if(/[A-Za-z]/.test(char)) {
         break;
       }
 
@@ -19,7 +19,7 @@ function ConvertHandler() {
   this.getUnit = function(input) {
     let result = '';
     for(let char of input) {
-      if(isNaN(char)) {
+      if(/[A-Za-z]/.test(char)) {
         break;
       }
       if(char !== undefined) {
