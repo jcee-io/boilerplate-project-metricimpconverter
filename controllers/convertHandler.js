@@ -61,6 +61,10 @@ function ConvertHandler() {
     
     return convertFullWord[unit];
   };
+
+  this.round = function(value, decimals) {
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+  };
   
   this.convert = function(initNum, initUnit) {
     const galToL = 3.78541;
@@ -84,13 +88,14 @@ function ConvertHandler() {
     result.returnNum = convertMap[initUnit] * initNum;
     result.string = this.getString(initNum, initUnit, result.returnNum, result.returnUnit);
 
+    result.returnNum = this.round(result.returnNum,5);
     
-    result.returnNum = String(result.returnNum);
+    // result.returnNum = String(result.returnNum);
 
-    const splittedNum = result.returnNum.split('.');
-    splittedNum[1] = splittedNum[1].slice(0,5);
-    result.returnNum = splittedNum.join('.');
-    result.returnNum = parseFloat(result.returnNum);
+    // const splittedNum = result.returnNum.split('.');
+    // splittedNum[1] = splittedNum[1].slice(0,5);
+    // result.returnNum = splittedNum.join('.');
+    // result.returnNum = parseFloat(result.returnNum);
     
     
     return result;
