@@ -78,13 +78,21 @@ function ConvertHandler() {
       kg: 1/lbsToKg,
       Kg: 1/lbsToKg,
     };
-    console.log('convert', initNum, initUnit);
   
     let result = {};
     result.returnUnit = this.getReturnUnit(initUnit);
     result.returnNum = convertMap[initUnit] * initNum;
     result.string = this.getString(initNum, initUnit, result.returnNum, result.returnUnit);
 
+    
+    result.returnNum = result.returnNum.toPrecision(6);
+
+    const splittedNum = result.returnNum.split('.');
+    splittedNum[1] = splittedNum[1].slice(0,5);
+    result.returnNum = splittedNum.join('.');
+    result.returnNum = parseFloat(result.returnNum);
+    
+    
     return result;
   };
   

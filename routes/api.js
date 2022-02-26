@@ -10,13 +10,22 @@ module.exports = function (app) {
     let json = {};
     const { input } = req.query;
   
-    console.log('before num');
     json.initNum = convertHandler.getNum(input);
     json.initUnit = convertHandler.getUnit(input);
+
+    json.initUnit = json.initUnit === 'l' || json.initUnit === 'L' ? json.initUnit.toUpperCase() : json.initUnit.toLowerCase();
     const result = convertHandler.convert(json.initNum, json.initUnit);
 
     json = {...json, ...result};
-    console.log(json.string);
+    if(json.returnUnit && json.returnUnit === 'kg') {
+      console.log(json);
+    }
+
+    if(json.returnUnit && json.returnUnit === 'lbs') {
+      console.log(json);
+    }
+    
+
     res.json(json);
   });
 };
