@@ -65,7 +65,7 @@ function ConvertHandler() {
       gal: 'gallons',
       L: 'liters',
       l: 'liters',
-      kg:' kilograms',
+      kg: 'kilograms',
       Kg: 'kilograms',
       km: 'kilometers',
       Km: 'kilometers',
@@ -98,18 +98,10 @@ function ConvertHandler() {
     let result = {};
     result.returnUnit = this.getReturnUnit(initUnit);
     result.returnNum = convertMap[initUnit] * initNum;
-    result.string = this.getString(initNum, initUnit, result.returnNum, result.returnUnit);
-
     result.returnNum = this.round(result.returnNum,5);
     
-    // result.returnNum = String(result.returnNum);
+    result.string = this.getString(initNum, initUnit, result.returnNum, result.returnUnit);
 
-    // const splittedNum = result.returnNum.split('.');
-    // splittedNum[1] = splittedNum[1].slice(0,5);
-    // result.returnNum = splittedNum.join('.');
-    // result.returnNum = parseFloat(result.returnNum);
-    
-    
     return result;
   };
   

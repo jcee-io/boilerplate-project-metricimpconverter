@@ -38,10 +38,79 @@ suite('Unit Tests', function(){
       assert.equal('km', convertHandler.getUnit('12km'));
       assert.equal('lbs', convertHandler.getUnit('12lbs'));
       assert.equal('kg', convertHandler.getUnit('12kg'));
-    });    
+    });
+    test('convertHandler should correctly return an error for an invalid input unit.', function() {
+      assert.equal('invalid unit', convertHandler.getUnit('12jcee'));
+    });   
+    test('convertHandler should return the correct return unit for each valid input unit.', function() {
+      assert.equal('L', convertHandler.getReturnUnit('gal'));
+      assert.equal('gal', convertHandler.getReturnUnit('L'));
+      assert.equal('km', convertHandler.getReturnUnit('mi'));
+      assert.equal('mi', convertHandler.getReturnUnit('km'));
+      assert.equal('kg', convertHandler.getReturnUnit('lbs'));
+      assert.equal('lbs', convertHandler.getReturnUnit('kg'));
+    });
+    test('convertHandler should correctly return the spelled-out string unit for each valid input unit.', function() {
+      assert.equal('gallons', convertHandler.spellOutUnit('gal'));
+      assert.equal('liters', convertHandler.spellOutUnit('L'));
+      assert.equal('miles', convertHandler.spellOutUnit('mi'));
+      assert.equal('kilometers', convertHandler.spellOutUnit('km'));
+      assert.equal('pounds', convertHandler.spellOutUnit('lbs'));
+      assert.equal('kilograms', convertHandler.spellOutUnit('kg'));
+    });
   });
 
-  // suite('Conversions', function() {
+  suite('Conversions', function() {
+    test('convertHandler should correctly convert gal to L.', function() {
+      const { returnNum, returnUnit, string } = convertHandler.convert(1, 'gal');
+      assert.equal(3.78541, returnNum);
+      assert.equal('L', returnUnit);
+      assert.equal('1 gallons converts to 3.78541 liters', string);
+    });
+
+    test('convertHandler should correctly convert L to gal.', function() {
+      const { returnNum, returnUnit, string } = convertHandler.convert(1, 'L');
+      const roundedNumber = convertHandler.round(1/3.78541, 5);
+
+      assert.equal(roundedNumber, returnNum);
+      assert.equal('gal', returnUnit);
+      assert.equal('1 liters converts to 0.26417 gallons', string);
+    });
     
-  // });
+    test('convertHandler should correctly convert mi to km.', function() {
+      const { returnNum, returnUnit, string } = convertHandler.convert(1, 'mi');
+      const roundedNumber = convertHandler.round(1.60934, 5);
+
+      assert.equal(roundedNumber, returnNum);
+      assert.equal('km', returnUnit);
+      assert.equal('1 miles converts to 1.60934 kilometers', string);
+    });   
+
+    test('convertHandler should correctly convert km to mi.', function() {
+      const { returnNum, returnUnit, string } = convertHandler.convert(1, 'km');
+      const roundedNumber = convertHandler.round(1/1.60934, 5);
+
+      assert.equal(roundedNumber, returnNum);
+      assert.equal('mi', returnUnit);
+      assert.equal('1 kilometers converts to 0.62137 miles', string);
+    });
+
+    test('convertHandler should correctly convert lbs to kg.', function() {
+      const { returnNum, returnUnit, string } = convertHandler.convert(1, 'lbs');
+      const roundedNumber = convertHandler.round(0.453592, 5);
+
+      assert.equal(roundedNumber, returnNum);
+      assert.equal('kg', returnUnit);
+      assert.equal('1 pounds converts to 0.45359 kilograms', string);
+    });
+
+    test('convertHandler should correctly convert kg to lbs.', function() {
+      const { returnNum, returnUnit, string } = convertHandler.convert(1, 'kg');
+      const roundedNumber = convertHandler.round(1/0.453592, 5);
+
+      assert.equal(roundedNumber, returnNum);
+      assert.equal('lbs', returnUnit);
+      assert.equal('1 kilograms converts to 2.20462 pounds', string);
+    });  
+  });
 });
